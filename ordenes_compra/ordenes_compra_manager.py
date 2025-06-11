@@ -19,7 +19,7 @@ def timer_decorator(func):
 
 
 
-class ordenes_compra_manager:
+class ordenesmanager:
 
     def __init__(self):
         self.callbacks = []
@@ -28,8 +28,8 @@ class ordenes_compra_manager:
         self.callbacks.append(callback)
 
     @timer_decorator
-    def add_orden(self, titulo):
-        orden = Orden.objects.create(titulo=titulo)
+    def add_orden(self, idOrdenCompra ):
+        orden = Orden.objects.create(idOrdenCompra = idOrdenCompra )
         for callback in self.callbacks:
             callback(orden)
         return orden
@@ -39,8 +39,12 @@ class ordenes_compra_manager:
         for orden in ordenes:
             yield {
                 'id': Orden.idOrdenCompra,
-                'Cantidad': Orden.CantidadSolicitada
-            }
+                'idProducto' : orden.idProducto,
+                'PresentacionSolicitada' : orden.PresentacionSolicitada,
+                'CantidadSolicitada' : orden.CantidadSolicitada ,
+                'PrecioUnidadSolicitada' : orden.PrecioUnidadSolicitada,
+        }
+            
 
     def obtener_orden(self, idOrdenCompra): 
         return Orden.objects.get(id=idOrdenCompra)
@@ -51,4 +55,13 @@ class ordenes_compra_manager:
 
     def actualizar_orden(self, orden):
         orden.save()
+
+    def notificacion_creacion_orden(orden):
+        print(f"Nueva Orden Creada: {orden.titulo}")
+
+
+
+# crear una instancia global
+
+ordenes_manager = ordenesmanager()
         
