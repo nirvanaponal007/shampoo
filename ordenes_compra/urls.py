@@ -1,15 +1,12 @@
 from django.urls import path
 from .import views
+from ordenes_compra.views import OrdenTemplateView, OrdenFormView, OrdenDetailView, OrdenDeleteView, TaskUpdateView
 
 
 urlpatterns = [
-    #api endpoints
-    path('add/<str:idOrdenCompra/>', views.add_orden, name='add_orden'),
-    path('list/', views.OrdenListView.as_view(), name='ordenes'),
-
-    # tempatle-based views
-    path('', views.OrdenTemplateView.as_view(), name='list_orden'),
-    path('form/', views.OrdenFormView.as_view(), name='orden_form'),
-    path('<int:orden_id>', views.OrdenDeleteView.as_view(), name='orden_delete'),
-    path('<int:orden_id>', views.OrdenUpdateView.as_view(), name='orden_update'),
+    path('',  OrdenTemplateView.as_view(), name= 'list_orden'),
+    path('detail',  OrdenDetailView.as_view(), name= 'detail_orden'),
+    path('form',  OrdenFormView.as_view(), name= 'form_orden'),
+    path('delete',  OrdenDeleteView.as_view(), name= 'delete_orden'),
+    path('update',  TaskUpdateView.as_view(), name= 'update_orden')
 ]

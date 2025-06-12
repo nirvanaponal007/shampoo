@@ -1,77 +1,11 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}Task List{% endblock %}
+{% block contenido %}
 
-{% block content %}
-<div class="row mb-4">
-    <div class="col">
-        <h1 class="display-4">My Tasks</h1>
-    </div>
-    <div class="col-auto align-self-center">
-        <a href="{% url 'task_form' %}" class="btn btn-success">
-            <i class="bi bi-plus-circle me-1"></i> Add New Task
-        </a>
-    </div>
+<div>
+    <p>estamos en ordenes lista</p>
 </div>
 
-<div class="card shadow-sm">
-    <div class="card-header bg-light d-flex justify-content-between align-items-center">
-        <span class="fw-bold">All Tasks ({{ tasks|length }})</span>
-        <div class="dropdown">
-            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-filter"></i> Filter
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="{% url 'list_tasks' %}">All Tasks</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{% url 'list_tasks' %}?sort=newest">Newest First</a></li>
-                <li><a class="dropdown-item" href="{% url 'list_tasks' %}?sort=oldest">Oldest First</a></li>
-            </ul>
-        </div>
-    </div>
 
-    {% if tasks %}
-    <div class="list-group list-group-flush">
-        {% for task in tasks %}
-        <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-            <div>
-                <a href="{% url 'task_detail' task.id %}" class="fw-bold text-decoration-none stretched-link">{{ task.title }}</a>
-                {% if task.created_at %}
-                <small class="text-muted d-block">Created: {{ task.created_at|date:"M d, Y" }}</small>
-                {% endif %}
-            </div>
-            <div class="task-actions">
-                <a href="{% url 'task_update' task.id %}" class="btn btn-sm btn-outline-primary">
-                    <i class="bi bi-pencil"></i>
-                </a>
-                <a href="{% url 'task_delete' task.id %}" class="btn btn-sm btn-outline-danger">
-                    <i class="bi bi-trash"></i>
-                </a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    {% else %}
-    <div class="card-body text-center py-5">
-        <div class="text-muted mb-3">
-            <i class="bi bi-clipboard-check" style="font-size: 3rem;"></i>
-        </div>
-        <h5>No tasks available</h5>
-        <p class="text-muted">Create your first task to get started!</p>
-        <a href="{% url 'task_form' %}" class="btn btn-primary">Add New Task</a>
-    </div>
-    {% endif %}
-</div>
 
-{% if tasks %}
-<div class="text-center mt-4">
-    <a href="{% url 'task_form' %}" class="btn btn-primary">
-        <i class="bi bi-plus-circle me-1"></i> Add Another Task
-    </a>
-</div>
-{% endif %}
-{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-{% endblock %} 
+{% endblock%}
