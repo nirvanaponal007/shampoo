@@ -1,9 +1,24 @@
-{% extends 'base.html' %}
-{% url 'index' as index %}
+
+{% extends "base.html" %}
+
+
 {% block contenido %}
 
-<p>estamos en ordenes detalle</p>
- 
+
+<h1>Detalle Ordenes</h1>
+
+<div class="task-detail">
+    <h2>{{ orden.nombre_orden }}</h2>
+    <p>Created: {{ orden.id }}</p>
+    
+    <div class="task-actions">
+        <a href="{% url 'update_orden' orden.id %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'delete_orden' orden.id %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'list_orden' %}" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
 
 
-{% endblock %}
+{% endblock %} 
+
+

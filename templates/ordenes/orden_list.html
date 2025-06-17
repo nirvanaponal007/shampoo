@@ -1,11 +1,68 @@
 {% extends 'base.html' %}
+{% url 'detail_orden' as detail_orden %}
 
 {% block contenido %}
 
-<div>
-    <p>estamos en ordenes lista</p>
+<div class="row mb-4">
+    <div class="col">
+        <h1 class="display-4">Mis Ordenes de Compra</h1>
+    </div>
 </div>
 
+<div class="card shadow-sm">
+    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+        <span class="fw-bold">Todas las Ordenes ({{ ordenes|length }})</span>
+        <div class="dropdown">
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="{% url 'list_orden' %}">All Tasks</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    {% if ordenes %}
+    <div class="list-group list-group-flush">
+        {% for orden in ordenes %}
 
 
-{% endblock%}
+        <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+            <div>
+                <a href="{% url 'detail_orden' orden.id %}" class="fw-bold text-decoration-none stretched-link">{{ orden.id }}</a>
+            </div>
+            <div>
+                <a href="{% url 'detail_orden' orden.id %}" class="fw-bold text-decoration-none stretched-link">{{ orden.title }}</a>
+            </div>
+        </div>
+        <div class="task-actions">
+            <a href="{% url 'update_orden' orden.id %}" class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-pencil">Editar</i>
+            </a>
+            <a href="{% url 'delete_orden' orden.id %}" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash">Eliminar</i>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="card-body text-center py-5">
+        <div class="text-muted mb-3">
+            <i class="bi bi-clipboard-check" style="font-size: 3rem;"></i>
+        </div>
+        <h5>No Ordenes de Compra Activas</h5>
+        <p class="text-muted">Crea tu primera orden de Compra!</p>
+        <a href="{% url 'form_orden' %}" class="btn btn-primary">Crear nueva tarea</a>
+    </div>
+    {% endif %}
+</div>
+
+{% if ordenes %}
+<div class="text-center mt-4">
+    <a href="{% url 'form_orden' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i> Agregar otra Orden de compra
+    </a>
+</div>
+{% endif %}
+
+{% endblock %}

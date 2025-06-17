@@ -1,7 +1,19 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block contenido %}
 
-<p>estamos en ordenes confirmar borrado</p>
+<h1>Borrar Orden</h1>
 
-{% endblock %}
+<div class="delete-confirmation">
+    <p>Are you sure you want to delete the task "{{ orden.id }}"?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Si, Borrar</button>
+        
+        <a href="{% url 'detail_orden' orden.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+
+{% endblock %} 

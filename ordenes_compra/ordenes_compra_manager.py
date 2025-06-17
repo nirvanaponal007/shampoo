@@ -28,36 +28,33 @@ class ordenesmanager:
         self.callbacks.append(callback)
 
     @timer_decorator
-    def add_orden(self, idOrdenCompra ):
-        orden = Orden.objects.create(idOrdenCompra = idOrdenCompra )
+    def add_orden(self, nombre_orden ):
+        orden = Orden.objects.create(nombre_orden = nombre_orden )
         for callback in self.callbacks:
             callback(orden)
         return orden
 
     def ordenes_generador(self):
-        ordenes = Orden.objects.all().order_by('idOrdenCompra')
+        ordenes = Orden.objects.all().order_by('nombre_orden')
         for orden in ordenes:
             yield {
-                'id': Orden.idOrdenCompra,
-                'idProducto' : orden.idProducto,
-                'PresentacionSolicitada' : orden.PresentacionSolicitada,
-                'CantidadSolicitada' : orden.CantidadSolicitada ,
-                'PrecioUnidadSolicitada' : orden.PrecioUnidadSolicitada,
+                'id': orden.id,
+                'title': orden.nombre_orden
         }
             
 
-    def obtener_orden(self, idOrdenCompra): 
-        return Orden.objects.get(id=idOrdenCompra)
+    def obtener_orden(self, id_orden): 
+        return Orden.objects.get(id=id_orden)
     
-    def borrar_orden(self, idOrdenCompra):
-        return Orden.objects.get(id=idOrdenCompra).delete()
+    def borrar_orden(self, id_orden):
+        return Orden.objects.get(id=id_orden).delete()
     
 
     def actualizar_orden(self, orden):
         orden.save()
 
     def notificacion_creacion_orden(orden):
-        print(f"Nueva Orden Creada: {orden.titulo}")
+        print(f"Nueva Orden Creada: {orden.nombre_orden}")
 
 
 
