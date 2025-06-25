@@ -1,0 +1,24 @@
+
+{% extends "base.html" %}
+
+
+{% block contenido %}
+
+
+<h1>Detalle Productos</h1>
+
+<div class="task-detail">
+    <h2>{{ producto.NombreProducto }}</h2>
+    <p>Id: {{ producto.id }}</p>
+    <p>Presentación: {{ producto.PresentacionProducto }}</p>
+    <p>Cantidad: {{ producto.CantidadProducto }}</p>
+    
+    <div class="task-actions">
+        <a href="{}" class="btn btn-primary">Edit</a>
+        <a href="{}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'list_producto' %}" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+
+
+{% endblock %} 

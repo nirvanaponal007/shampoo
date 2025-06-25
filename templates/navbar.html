@@ -1,4 +1,5 @@
 {% url 'list_orden' as list_orden %}
+{% url 'list_producto' as list_producto %}
 {% url 'detail_orden' as detail_orden %}
 {% url 'form_orden' as form_orden %}
 {% url 'delete_orden' as delete_orden %}
@@ -38,6 +39,10 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{ list_orden }}">orden_list</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ list_producto }}">list_producto</a>
+          </li>
+
         </ul>
       </div>
     </div>

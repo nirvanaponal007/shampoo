@@ -10,6 +10,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #Se incluye include para conectar URL de ordenes de compra
     path('ordenes/', include('ordenes_compra.urls')),
+    path('productos/', include('productos.urls')),
 ]
 
 

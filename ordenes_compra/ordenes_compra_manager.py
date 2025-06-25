@@ -1,6 +1,7 @@
 # manager de models
 
 from .models import Orden
+from productos.models import Producto
 import time
 from functools import wraps
 
@@ -35,16 +36,35 @@ class ordenesmanager:
         return orden
 
     def ordenes_generador(self):
-        ordenes = Orden.objects.all().order_by('nombre_orden')
+        ordenes = Orden.objects.all().order_by('id')
         for orden in ordenes:
             yield {
                 'id': orden.id,
                 'title': orden.nombre_orden
         }
-            
+
+
+
+
+    def productos_generador(self):
+        productos = Producto.objects.all().order_by('id')
+        for producto in productos:
+            yield {
+                'id': producto.id,
+                'title': producto.NombreProducto,
+                'presentation': producto.PresentacionProducto,
+                'quantity': producto.CantidadProducto
+
+        }
+
+
+
 
     def obtener_orden(self, id_orden): 
         return Orden.objects.get(id=id_orden)
+    
+    def obtener_producto(self, id_producto): 
+        return Producto.objects.get(id=id_producto)
     
     def borrar_orden(self, id_orden):
         return Orden.objects.get(id=id_orden).delete()
