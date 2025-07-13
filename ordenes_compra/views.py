@@ -13,13 +13,13 @@ from .ordenes_compra_manager import ordenes_manager
 
 
 @require_http_methods(["GET"])
-def add_orden(request, nombre_orden):
-    orden = ordenes_manager.add_orden(nombre_orden)
+def add_orden(request, observacion_orden):
+    orden = ordenes_manager.add_orden(observacion_orden)
     return JsonResponse({
         'status': 'success',
         'orden': {
             'id': orden.id,
-            'title': orden.nombre_orden 
+            'title': orden.observacion_orden 
            
         }
     })
@@ -63,7 +63,7 @@ class OrdenDetailView (DetailView):
 
 #declaro ordenForm
 class OrdenForm(forms.Form):
-    codigo_oc = forms.CharField(max_length=50, required=True)
+    observacion_oc = forms.CharField(max_length=50, required=True)
     #codigo_producto_oc = forms.IntegerField(required=True,  label="Ingresa un número", help_text="Debe estar entre 1 y 100")
     #presentacion_oc = forms.IntegerField(required=True,  label="Ingresa un número", help_text="Debe estar entre 1 y 100")
     #cantidad_oc = forms.IntegerField(required=True,  label="Ingresa un número", help_text="Debe estar entre 1 y 100")
@@ -77,7 +77,7 @@ class OrdenFormView(FormView):
 
 
     def form_valid(self, form):
-        orden_titulo = form.cleaned_data['codigo_oc']
+        orden_titulo = form.cleaned_data['observacion_oc']
         #orden_titulo = form.cleaned_data['codigo_producto_oc']
         #orden_titulo = form.cleaned_data['presentacion_oc']
         #orden_titulo = form.cleaned_data['cantidad_oc']
@@ -116,11 +116,11 @@ class OrdenUpdateView(FormView):
     
     def get_initial(self):
         orden = self.get_object()
-        return {'codigo_oc': orden.nombre_orden}
+        return {'observacion_oc': orden.observacion_orden}
     
     def form_valid(self, form):
         orden = self.get_object()
-        orden.nombre_orden = form.cleaned_data['codigo_oc']
+        orden.observacion_orden = form.cleaned_data['observacion_oc']
         ordenes_manager.actualizar_orden(orden)
         return super().form_valid(form)
     

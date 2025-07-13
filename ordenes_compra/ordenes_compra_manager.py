@@ -5,8 +5,6 @@ from productos.models import Producto
 import time
 from functools import wraps
 
-
-
 def timer_decorator(func):
     @wraps(func)
     def wrapper (*args,**kwargs):
@@ -18,8 +16,6 @@ def timer_decorator(func):
         return result
     return wrapper
 
-
-
 class ordenesmanager:
 
     def __init__(self):
@@ -29,22 +25,33 @@ class ordenesmanager:
         self.callbacks.append(callback)
 
     @timer_decorator
-    def add_orden(self, nombre_orden ):
-        orden = Orden.objects.create(nombre_orden = nombre_orden )
+    def add_orden(self, observacion_orden ):
+        orden = Orden.objects.create(observacion_orden = observacion_orden )
         for callback in self.callbacks:
             callback(orden)
         return orden
+    
+
+
+    def add_producto(self, NombreProducto, PresentacionProducto, CantidadProducto ):
+        producto = Producto.objects.create(
+            NombreProducto = NombreProducto,
+            PresentacionProducto = PresentacionProducto,
+            CantidadProducto = CantidadProducto
+        )
+        for callback in self.callbacks:
+            callback(producto)
+        return producto
+
+
 
     def ordenes_generador(self):
         ordenes = Orden.objects.all().order_by('id')
         for orden in ordenes:
             yield {
                 'id': orden.id,
-                'title': orden.nombre_orden
+                'title': orden.observacion_orden
         }
-
-
-
 
     def productos_generador(self):
         productos = Producto.objects.all().order_by('id')
@@ -58,8 +65,6 @@ class ordenesmanager:
         }
 
 
-
-
     def obtener_orden(self, id_orden): 
         return Orden.objects.get(id=id_orden)
     
@@ -69,12 +74,19 @@ class ordenesmanager:
     def borrar_orden(self, id_orden):
         return Orden.objects.get(id=id_orden).delete()
     
+    def borrar_producto(self, id_producto):
+        return Producto.objects.get(id=id_producto).delete()
+    
 
     def actualizar_orden(self, orden):
         orden.save()
 
+
+    def actualizar_producto(self, producto):
+        producto.save()
+
     def notificacion_creacion_orden(orden):
-        print(f"Nueva Orden Creada: {orden.nombre_orden}")
+        print(f"Nueva Orden Creada: {orden.observacion_orden}")
 
 
 

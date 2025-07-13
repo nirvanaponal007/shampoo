@@ -14,7 +14,7 @@
     <p>Cantidad: {{ producto.CantidadProducto }}</p>
     
     <div class="task-actions">
-        <a href="{}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'update_producto' producto.id %}" class="btn btn-primary">Edit</a>
         <a href="{}" class="btn btn-danger">Delete</a>
         <a href="{% url 'list_producto' %}" class="btn btn-secondary">Back to List</a>
     </div>

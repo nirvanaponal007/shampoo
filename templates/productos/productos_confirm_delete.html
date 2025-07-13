@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h1>Borrar Producto</h1>
+
+<div class="delete-confirmation">
+    <p>Are you sure you want to delete the task "{{ producto.id }}"?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Si, Borrar</button>
+        
+        <a href="{% url 'detail_producto' producto.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+
+{% endblock %} 
